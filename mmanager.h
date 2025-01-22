@@ -17,13 +17,15 @@ typedef struct mmgr_action {
 	char paint;
 } mmgr_action;
 
-typedef struct node {
-	node* next;
-	node* last;
+typedef struct node Node;
+
+struct node {
+	Node* next;
+	Node* last;
 	void* location;
 	int size;
 	int id;
-} Node;
+};
 
 int runModel(FILE *outputfp, FILE *inputfp,
 		long numberOfBytes, int fitStrategy,
@@ -33,13 +35,13 @@ int getAction(mmgr_action *action, FILE *inputfp,
 		FILE *outputfp, int verbosity);
 int printAction(FILE *outputfp, mmgr_action *action);
 
-int allocateMemoryFirst(int size, int id, node* head);
+int allocateMemoryFirst(int size, int id, Node* head);
 
-int allocateMemoryBest(int size, int id, node* head);
+int allocateMemoryBest(int size, int id, Node* head);
 
-int allocateMemoryWorst(int size, int id, node* head);
+int allocateMemoryWorst(int size, int id, Node* head);
 
-int deallocateMemory(int id, node* head);
+int deallocateMemory(int id, Node* head);
 
 #endif
 

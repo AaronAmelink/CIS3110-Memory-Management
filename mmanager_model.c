@@ -34,7 +34,9 @@ int runModel(FILE *outputfp, FILE *inputfp,
 	 *	+++ Set up anything else you will need for your memory management
 	 */
 
-	Node* head = (Node*)(memoryBlock - sizeof(Node));
+	//head size denotes the size of the linked list
+
+	Node* head = (Node*)(memoryBlock);
 
 	while (getAction(&action, inputfp, outputfp, verbosity) > 0)
 	{
