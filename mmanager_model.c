@@ -42,7 +42,7 @@ int runModel(FILE *outputfp, FILE *inputfp,
 	{
 		if (action.type == ACTION_ALLOCATE)
 		{
-			allocateMemoryBest(action.size, action.id, &head, memoryBlock, totalMemorySize, action.paint);
+			allocateMemoryWorst(action.size, action.id, &head, memoryBlock, totalMemorySize, action.paint);
 			memdbg_dump_map(stdout, NULL, memoryBlock, 500, 1);
 			printf("\n\n");
 			/* +++ do an allocation */
