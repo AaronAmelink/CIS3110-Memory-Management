@@ -1,6 +1,9 @@
 #ifndef	MEM_MANANGER_HEADER
 #define	MEM_MANANGER_HEADER
 
+#include <stdlib.h>
+#include <stdio.h>
+
 #define		DEFAULT_MEMORY_SIZE		4096
 
 #define		STRAT_FIRST		0x01
@@ -31,17 +34,24 @@ int runModel(FILE *outputfp, FILE *inputfp,
 		long numberOfBytes, int fitStrategy,
 		int verbosity);
 
+Node* insertNode(void* location, int id, int size, Node** headptr, char paint);
+
+int removeNode(int id, Node** head);
+
 int getAction(mmgr_action *action, FILE *inputfp,
 		FILE *outputfp, int verbosity);
 int printAction(FILE *outputfp, mmgr_action *action);
 
-int allocateMemoryFirst(int size, int id, Node* head);
+int allocateMemoryFirst(int size, int id, Node** head, void* startOfMemory, int memorySize, char paint);
 
-int allocateMemoryBest(int size, int id, Node* head);
+int allocateMemoryBest(int size, int id, Node** head, void* startOfMemory, int memorySize, char paint);
 
-int allocateMemoryWorst(int size, int id, Node* head);
+int allocateMemoryWorst(int size, int id, Node** head, void* startOfMemory, int memorySize, char paint);
 
-int deallocateMemory(int id, Node* head);
+int
+memdbg_dump_map(FILE* fp,
+		void *base, void *start,
+		size_t nBytesToPrint, int indent);
 
 #endif
 

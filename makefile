@@ -6,7 +6,10 @@ MMGR		=	allocator
 MMGR_OBJS	=	\
 				mmanager_main.o \
 				mmanager_model.o \
-				mmanager_parse.o
+				mmanager_parse.o \
+				memdbg_dump_map.o \
+				allocator.o \
+				LinkedList.o
 
 $(MMGR) : $(MMGR_OBJS)
 	$(CC) $(CFLAGS) -o $(MMGR) $(MMGR_OBJS)

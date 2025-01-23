@@ -36,16 +36,21 @@ int runModel(FILE *outputfp, FILE *inputfp,
 
 	//head size denotes the size of the linked list
 
-	Node* head = (Node*)(memoryBlock);
+	Node* head = NULL;
 
 	while (getAction(&action, inputfp, outputfp, verbosity) > 0)
 	{
 		if (action.type == ACTION_ALLOCATE)
 		{
+			allocateMemoryBest(action.size, action.id, &head, memoryBlock, totalMemorySize, action.paint);
+			memdbg_dump_map(stdout, NULL, memoryBlock, 500, 1);
+			printf("\n\n");
 			/* +++ do an allocation */
 		} else
 		{
-			/* +++ do a release */
+			removeNode(action.id, &head);
+			memdbg_dump_map(stdout, NULL, memoryBlock, 500, 1);
+			printf("\n\n");
 		}
 
 		/** increment our count of work we did */
