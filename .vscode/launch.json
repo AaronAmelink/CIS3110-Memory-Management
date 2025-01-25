@@ -6,7 +6,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/allocator", // Path to your compiled executable
-            "args": ["smalltest.txt"], // Replace with the path to your input file
+            "args": ["first-best.txt", "-v", "-s", "bes"], // Replace with the path to your input file
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

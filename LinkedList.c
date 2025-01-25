@@ -66,12 +66,12 @@ Node* insertNode(void* location, int id, int size, Node** headptr, char paint) {
     return newNode;
 }
 
-int removeNode(int id, Node** head) {
+void* removeNode(int id, Node** head) {
     Node* temp = *head;
     Node* headptr = *head;
     while (temp->id != id) {
         if (temp->next == NULL) {
-            return -1;
+            return NULL;
         }
         temp = temp->next;
     }
@@ -101,5 +101,5 @@ int removeNode(int id, Node** head) {
         *i = 0;
         i++;
     }
-    return 1;
+    return i;
 }

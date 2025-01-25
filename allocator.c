@@ -1,13 +1,13 @@
 #include "mmanager.h"
 
 
-int allocateMemoryFirst(int size, int id, Node** head, void* startOfMemory, int memorySize, char paint) {
+Node* allocateMemoryFirst(int size, int id, Node** head, void* startOfMemory, int memorySize, char paint) {
     Node* temp = (*head);
     Node* inserted = NULL;
 
     if (*head == NULL) {
         inserted = insertNode(startOfMemory, id, size, head, paint);
-        return (inserted == NULL ? -1 : 1);
+        return inserted;
     }
 
     while (temp->next != NULL) {
@@ -21,23 +21,19 @@ int allocateMemoryFirst(int size, int id, Node** head, void* startOfMemory, int 
         inserted = insertNode(temp->location+temp->size+sizeof(Node), id, size, head, paint);
     }
 
-    if (inserted == NULL) {
-        return -1;
-    } else {
-        return 1;
-    }
+    return inserted;
 
 }
 
-int allocateMemoryBest(int size, int id, Node** head, void* startOfMemory, int memorySize, char paint) {
-
+Node* allocateMemoryBest(int size, int id, Node** head, void* startOfMemory, int memorySize, char paint) {
+    Node* inserted = NULL;
     if (*head == NULL) {
-        Node* inserted = insertNode(startOfMemory, id, size, head, paint);
-        return (inserted == NULL ? -1 : 1);
+        inserted = insertNode(startOfMemory, id, size, head, paint);
+        return inserted;
     }
 
     int minDifference = 10000000; //based on first item. i.e. if smallest size dif is between 2/3 node, minIndex would be 2
-    int minIndex = 0;
+    int minIndex = -1;
     int index = -1;
     int sizeDif;
     Node* temp = (*head);
@@ -57,8 +53,8 @@ int allocateMemoryBest(int size, int id, Node** head, void* startOfMemory, int m
                 minDifference = sizeDif;
                 minIndex = index;
             }
-            if (temp->next == NULL && sizeDif < 0) {
-                return -1; //no available slot at all
+            if (temp->next == NULL && minIndex == -1) {
+                return NULL; //no available slot at all
             }
             temp = temp->next;
             index++;
@@ -69,8 +65,8 @@ int allocateMemoryBest(int size, int id, Node** head, void* startOfMemory, int m
     }
 
     if (minIndex == -1) {
-        insertNode(startOfMemory, id, size, head, paint);
-        return 1;
+        inserted = insertNode(startOfMemory, id, size, head, paint);
+        return inserted;
     }
     
     index = 0;
@@ -81,19 +77,20 @@ int allocateMemoryBest(int size, int id, Node** head, void* startOfMemory, int m
         index++;
     }
 
-    insertNode(temp->location + temp->size + sizeof(Node), id, size, head, paint);
-    return 1;
+    inserted = insertNode(temp->location + temp->size + sizeof(Node), id, size, head, paint);
+    return inserted;
 }
 
-int allocateMemoryWorst(int size, int id, Node** head, void* startOfMemory, int memorySize, char paint) {
+Node* allocateMemoryWorst(int size, int id, Node** head, void* startOfMemory, int memorySize, char paint) {
     
+    Node* inserted = NULL;
     if (*head == NULL) {
-        Node* inserted = insertNode(startOfMemory, id, size, head, paint);
-        return (inserted == NULL ? -1 : 1);
+        inserted = insertNode(startOfMemory, id, size, head, paint);
+        return inserted;
     }
 
     int maxDifference = 0; //based on first item. i.e. if smallest size dif is between 2/3 node, minIndex would be 2
-    int maxIndex = 0;
+    int maxIndex = -1;
     int index = -1;
     int sizeDif;
     Node* temp = (*head);
@@ -113,8 +110,8 @@ int allocateMemoryWorst(int size, int id, Node** head, void* startOfMemory, int 
                 maxDifference = sizeDif;
                 maxIndex = index;
             }
-            if (temp->next == NULL && sizeDif < 0) {
-                return -1; //no available slot at all
+            if (temp->next == NULL && maxIndex == -1) {
+                return NULL; //no available slot at all
             }
             temp = temp->next;
             index++;
@@ -125,8 +122,8 @@ int allocateMemoryWorst(int size, int id, Node** head, void* startOfMemory, int 
     }
 
     if (maxIndex == -1) {
-        insertNode(startOfMemory, id, size, head, paint);
-        return 1;
+        inserted = insertNode(startOfMemory, id, size, head, paint);
+        return inserted;
     }
     
     index = 0;
@@ -137,6 +134,6 @@ int allocateMemoryWorst(int size, int id, Node** head, void* startOfMemory, int 
         index++;
     }
 
-    insertNode(temp->location + temp->size + sizeof(Node), id, size, head, paint);
-    return 1;
+    inserted = insertNode(temp->location + temp->size + sizeof(Node), id, size, head, paint);
+    return inserted;
 }

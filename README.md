@@ -1,6 +1,9 @@
 # Assignment 1
 ## CIS\*3110/Operating SystemsMarking Scheme
 ## W25
+Author: Aaron Amelink
+Student ID: 1266687
+Date: 2025/01/27
 
 --------------------------------------------------------------------
 

@@ -36,17 +36,17 @@ int runModel(FILE *outputfp, FILE *inputfp,
 
 Node* insertNode(void* location, int id, int size, Node** headptr, char paint);
 
-int removeNode(int id, Node** head);
+void* removeNode(int id, Node** head);
 
 int getAction(mmgr_action *action, FILE *inputfp,
 		FILE *outputfp, int verbosity);
 int printAction(FILE *outputfp, mmgr_action *action);
 
-int allocateMemoryFirst(int size, int id, Node** head, void* startOfMemory, int memorySize, char paint);
+Node* allocateMemoryFirst(int size, int id, Node** head, void* startOfMemory, int memorySize, char paint);
 
-int allocateMemoryBest(int size, int id, Node** head, void* startOfMemory, int memorySize, char paint);
+Node*  allocateMemoryBest(int size, int id, Node** head, void* startOfMemory, int memorySize, char paint);
 
-int allocateMemoryWorst(int size, int id, Node** head, void* startOfMemory, int memorySize, char paint);
+Node*  allocateMemoryWorst(int size, int id, Node** head, void* startOfMemory, int memorySize, char paint);
 
 int
 memdbg_dump_map(FILE* fp,
